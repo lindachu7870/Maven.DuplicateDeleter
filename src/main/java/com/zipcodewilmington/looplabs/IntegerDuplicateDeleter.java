@@ -15,7 +15,6 @@ public final class IntegerDuplicateDeleter extends DuplicateDeleter<Integer> {
     @Override
     public Integer[] removeDuplicates(int maxNumberOfDuplications) {
         Integer[] intArr = new Integer[array.length];
-        int index = 0;
         int max = 0;
 
         for (int i = 0; i < array.length; i++) {
@@ -26,11 +25,22 @@ public final class IntegerDuplicateDeleter extends DuplicateDeleter<Integer> {
 
         Integer[] intMap = new Integer[max + 1];
 
+        // using an array to map the numbers
         for (int i = 0; i < array.length; i++) {
             int curr = array[i];
-            intMap[curr] = intMap[curr] + 1;
+            intMap[curr] = intMap[curr]++;
         }
 
+        Integer[] copyArr = new Integer[intMap.length];
+        int newIndex = 0;
+        // array to copy all the values over
+        for (int i = 0; i < array.length; i++) {
+            int curr = array[i];
+            if (intMap[curr] < maxNumberOfDuplications) {
+                copyArr[newIndex] = curr;
+                newIndex++;
+            }
+        }
 
         return new Integer[0];
     }
